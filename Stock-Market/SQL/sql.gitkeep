@@ -1,1 +1,90 @@
-SQL SYNTAX FOR SNOWFLAKE
+SQL SYNTAX FOR SNOWFLAKE:
+
+Reference information on various areas of Snowflake.
+SQL data types reference:
+SNOWFLAKE SUPPPORTS MOST OF SQL DATA TYPES FOR USE IN COLUMNS, LOCAL VARIABLES,, EXPRESSIONS,PARAMETERS AND EXPRESSIONS
+and any other appropriate operations:-
+In some cases, data of one type can be converted to another type. For example, INTEGER data can be converted to FLOAT data.
+
+Some conversions are lossless, but others might lose information. The amount of loss depends upon the data types and the specific values. For example, converting a FLOAT value to an INTEGER value removes the digits after the decimal place. (The value is rounded to the nearest integer.)
+
+In some cases, the user must specify the desired conversion, such as when passing a VARCHAR value to the TIME_SLICE function, which expects a TIMESTAMP or DATE argument. We call this explicit casting.
+
+In other cases, data types are converted automatically, such as when adding a float and an integer. We call this implicit casting (or coercion). In Snowflake, data types are automatically coerced whenever necessary and possible.
+
+CREATE OR REPLACE TABLE test_fixed(
+  num0 NUMBER,
+  num10 NUMBER(10,1),
+  dec20 DECIMAL(20,2),
+  numeric30 NUMERIC(30,3),
+  int1 INT,
+  int2 INTEGER);
+
+DESC TABLE test_fixed;
+
+####CATAGORY :-
+NUMERIC DATATYPES:             
+Number  ---Default precision and scale are (38,0)
+Decimal ---Its'a Synonymous with the Numbers
+INT, INTEGER ---Its'a Synonymous with the Numbers, BUT PRECISION SCALE IS 
+SMALLINT, BIGINT,---DIFFERENT.
+TINYINT,BYTEINT---- SAME AS NUMBER BUT THE PRECISION  IS DIFFERENT
+FLOAT, FLOAT4, FLOAT8 ---Float values[1]
+Double, Double precision -----Synonymous  with the float[1]
+
+####STRING & BINARY DATA TYPES:
+
+VARCHAR ---- DEFAULT LENGTH IS 16777216 BYTES,
+CHAR CHARACTER--- Same as the Varchar, but it varies from the default length
+STRING, TEXT ---- Same as varchar,
+BINARY, VARBINARY ---BINARY VALUES
+
+####LOGICAL DATA TYPES:
+BOOLEAN------SNOWFLAKE SUPPORTS ONLY THE BOOLEN LOGICAL DATA TYPES
+DATE & DATETIME  ----Alias for TIMESTAMP_NTZ
+TIME, TIMESTAMP   ----Alias for one of the TIMESTAMP variations (TIMESTAMP_NTZ by default).
+TIMESTAMP_LTZ  ----TIMESTAMP with local time zone; time zone, if provided, isn’t stored.
+TIMESTAMP_NTZ  -----TIMESTAMP with no time zone; time zone, if provided, isn’t stored.
+
+
+#### SEMI STRECTURED DATA TYPES:
+
+VARIENT
+OBJECT
+ARRAY
+
+#### STRUCTURED DATA TYPES
+ARRAY --- Currently only supports ICE berg tables
+OBJECT --- Currently only supports ICE berg tables
+MAP  --- Currently only supports ICE berg tables
+
+####Unstructured data types:
+FILE
+#### GEO SPATIAL DATA TYPES
+
+GEOGRAPHY
+GEOMATRY
+
+###VECTOR DATATYPES
+VECTOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
