@@ -1,0 +1,38 @@
+Query Performance Tuning:
+1. Understand the Query :
+a)Lets check the execution plan  EXPLAIN OR explain analyze -> to see the execution plan, This shows iif the DB is scanning millions of rows when it could be scanning thousands.
+b) Check the Unessary joins, suplicates fileters, or functions on indexed columns ( Which kills the INdex usages)
+
+2.) Reduce the data scanned
+a) Filter early --> Push WHERE Filters as close to the base tables as possibles.
+b)Avoid the SELECT --> Only if needed to fetch the columns you need/
+c)Use LIMIT for testing do you dont scan all tables unnecessarily.
+
+3.INDEXING
+a)Create indexes on frequently filteres or join columns.
+b) Use composites indexes when you filter / sort by multiple columns together.
+c) Avoid over-indexing --- too many indexes can slow down  writes.
+
+4.OPTIMIZE Joins
+a)Join on indexed columns ( ideally primay key / Foreign key)
+b)Ensure the join key have matching the data types.
+d)Use the amaller table first ( especially inner joins)
+e) Consider the Semi-joins (EXISTS)Instead of big joins- filter combinations.
+
+5. AGGREGATE Smarter
+a) Pre-aggregate data in CTE or temp table id it avoids recalculation sums/ coounts repeatedly.
+b) Avoid window functions when simple Group by works..
+
+6. WATCHOUT FOR EXPENSIVE OPERATIONS
+a) Functtions on columns in WHERE ( e.g WHERE YEAR(DATE) -=2024 CAN KILL THE INDEXSA---> REWRITE  AS WHERE date BETWEEN...
+b) Avoid the Distinct unless it is actually required ---> often group by faster
+c) Reduce OR Conditions ---> use IN or UNION ALL.
+
+
+7.USE Cachinf & Preprocessing
+a) Cache frequent query results in  materialized views or summery tables.
+b) Schedule ETL Jobs topreprocess heavy computation instead of calculating them on every query.
+
+8. Data base specific Tweaks
+a) Snowflake--->se the the clustring keys, avoid small micro partition, leverages result cache.
+b) SPARK SQL ---> Filter early, reputation smartly, amd avoid the shuffles.
